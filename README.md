@@ -4,4 +4,5 @@ MLOPS_Bootcamp
 
 # Airflow ETL Pipeline
 
-![Alt Text] ("../Images/AirFlow_ETL.png" "Airflow ETL")
+
+<img src="Images/AirFlow_ETL.png" alt="Alt Text" width="500">
