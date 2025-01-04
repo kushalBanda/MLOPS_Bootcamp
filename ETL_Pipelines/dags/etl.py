@@ -20,7 +20,7 @@ with DAG(
     @task
     def create_table():
         ## initialize the Postgreshook
-        postgres_hook=PostgresHook(postgres_conn_id="my_postgres_connection")
+        postgres_hook = PostgresHook(postgres_conn_id="`my_postgres_connection`")
 
         ## SQL query to create the table
         create_table_query="""
@@ -41,7 +41,7 @@ with DAG(
 
     ## Step 2: Extract the NASA API Data(APOD)-Astronomy Picture of the Day[Extract pipeline]
     ## https://api.nasa.gov/planetary/apod?api_key=YCwGVl3DtDn8zbeA9ci2S6Cb8WaUAAHV0j1mU58B
-    extract_apod=SimpleHttpOperator(
+    extract_apod = SimpleHttpOperator(
         task_id='extract_apod',
         http_conn_id='nasa_api',  ## Connection ID Defined In Airflow For NASA API
         endpoint='planetary/apod', ## NASA API enpoint for APOD
@@ -70,7 +70,7 @@ with DAG(
     @task
     def load_data_to_postgres(apod_data):
         ## Initialize the PostgresHook
-        postgres_hook=PostgresHook(postgres_conn_id='my_postgres_connection')
+        postgres_hook = PostgresHook(postgres_conn_id = 'my_postgres_connection')
 
         ## Define the SQL Insert Query
 
@@ -98,7 +98,7 @@ with DAG(
 
     ## step 6: Define the task dependencies
     ## Extract
-    create_table() >> extract_apod  ## Ensure the table is create befor extraction
+    create_table() >> extract_apod  ## Ensure the table is create before extraction
     api_response=extract_apod.output
     ## Transform
     transformed_data=transform_apod_data(api_response)
